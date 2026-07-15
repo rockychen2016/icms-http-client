@@ -414,6 +414,7 @@ export class HttpClient {
             mode: CryptoJS.mode.ECB,
         }).toString(CryptoJS.enc.Utf8);
     }
+    
     setHttpOptsToCookies = (cookies: Record<string, string>) => {
         if (this.deviceId && this.deviceId.length > 0) {
             cookies[COOKIE_NAMES.IBOOT_DEVICE_ID] = this.deviceId
