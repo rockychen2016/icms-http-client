@@ -4,7 +4,7 @@
 
 中文简介：
 
-iboot-http-client 是一个轻量的 HTTP 客户端库，旨在帮助开发者快速接入并使用 iCMS 系统的 API。它封装了常见的请求/响应处理、鉴权与类型声明，适用于 TypeScript 在浏览器或 Node.js 环境中的调用场景。
+iCMS-http-client 是一个轻量的 HTTP 客户端库，旨在帮助开发者快速接入并使用 iCMS 系统的 API。它封装了常见的请求/响应处理、鉴权与类型声明，适用于 TypeScript 在浏览器或 Node.js 环境中的调用场景。
 
 English Summary:
 
