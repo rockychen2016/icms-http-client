@@ -1,6 +1,6 @@
 import md5 from "js-md5";
 import CryptoJS from 'crypto-js';
-import {randomString } from "./utils";
+import {generateDeviceId, randomString } from "./utils";
 import {
     ClientGetParams,
     ClientPostParams,
@@ -27,21 +27,21 @@ const CURRENT_WEBSITE_KEY = "_current_website_key"
 const _GET_ERROR = "Get request error!"
 const _POST_ERROR = "Post request error!";
 
-const COOKIE_NAMES = {
+export const COOKIE_NAMES = {
     "IBOOT_DEVICE_ID": "dvid",
     "IBOOT_LANG": "lang",
     "IBOOT_WEBSITE_ID": "wid",
     "IBOOT_WEBSITE_NO": "wno",
     "IBOOT_TOKEN": "token",
     "IBOOT_USER": "user"
-}
+} as const
 
 const HEADER_NAMES = {
     "DEVICE_ID": "Device-Id",
     "LANG": "Lang",
     "WEBSITE_ID": "Website-Id",
     "WEBSITE_NO": "Website-No",
-}
+} as const
 
 const getClientRequestHeader = (storage: Readonly<IStorage>): ClientHttpHeaders => {
     if (!storage.get) {
@@ -396,7 +396,7 @@ export class HttpClient {
 
         this.helloMethod = opts.helloURL ?? ''
         this.userType = opts.userType ?? USER_TYPE_MAP.TYPE_MGT;
-        this.deviceId = opts.deviceId ?? randomString(10);
+        this.deviceId = opts.deviceId ?? generateDeviceId();
         this.lang = opts.lang ?? DEFAULT_LOCALE;
         this.websiteId = opts.websiteId
         this.websiteNo = opts.websiteNo
