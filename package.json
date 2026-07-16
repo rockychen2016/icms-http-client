@@ -4,15 +4,15 @@
   "version": "1.0.0",
   "description": "iCMS Nextjs/Nuxtjs 路由处理,使用该包可快速创建基于iCMS的(网站/APP/小程序)",
   "type": "module",
-  "main": "./dist/iboot-http-client.cjs.js",
-  "module": "./dist/iboot-http-client.es.js",
-  "browser": "./dist/iboot-http-client.umd.js",
+  "main": "./dist/icms-http-client.cjs.js",
+  "module": "./dist/icms-http-client.es.js",
+  "browser": "./dist/icms-http-client.umd.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/iboot-http-client.es.js",
-      "require": "./dist/iboot-http-client.cjs.js",
-      "default": "./dist/iboot-http-client.es.js"
+      "import": "./dist/icms-http-client.es.js",
+      "require": "./dist/icms-http-client.cjs.js",
+      "default": "./dist/icms-http-client.es.js"
     }
   },
   "types": "./dist/types/index.d.ts",
@@ -39,12 +39,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rockychen2016/iboot-http-client.git"
+    "url": "git+https://github.com/rockychen2016/icms-http-client.git"
   },
   "bugs": {
-    "url": "https://github.com/rockychen2016/iboot-http-client/issues"
+    "url": "https://github.com/rockychen2016/icms-http-client/issues"
   },
-  "homepage": "https://www.iboot.fun",
+  "homepage": "https://www.icms.fun",
   "dependencies": {
     "crypto-js": "^4.2.0",
     "h3": "^1.15.4",

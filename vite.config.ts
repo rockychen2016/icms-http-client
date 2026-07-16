@@ -16,9 +16,9 @@ export default defineConfig({
       // 入口文件
       entry: resolve(__dirname, 'src/index.ts'),
       // 库名称
-      name: 'iboot-http-client',
+      name: 'icms-http-client',
       // 输出文件名
-      fileName: (format) => `iboot-http-client.${format}.js`,
+      fileName: (format) => `icms-http-client.${format}.js`,
       // 输出格式
       formats: ['es', 'umd', 'cjs']
     },
