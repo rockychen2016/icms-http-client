@@ -28,14 +28,14 @@ iboot-http-client is a lightweight HTTP client library designed to help develope
 使用 npm:
 
 ```bash
-npm install iboot-http-client
+npm install "@rock.chen/icms-http-client"
 ```
 
 或使用 pnpm / yarn:
 
 ```bash
-pnpm add iboot-http-client
-yarn add iboot-http-client
+pnpm add "@rock.chen/icms-http-client"
+yarn add "@rock.chen/icms-http-client"
 ```
 
 ## 快速开始 / Quick Start
@@ -43,7 +43,7 @@ yarn add iboot-http-client
 示例（TypeScript）：
 
 ```ts
-import { HttpClient } from 'iboot-http-client'
+import { HttpClient } from '@rock.chen/icms-http-client'
 
 const client = new HttpClient()
 

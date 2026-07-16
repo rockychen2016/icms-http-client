@@ -374,7 +374,6 @@ export const cleanToken = (cookies: ICookies): void => {
     cookies.delete(COOKIE_NAMES.IBOOT_USER, cleanCookieOpts);
 }
 
-
 export class HttpClient {
     private readonly baseUrl: string;
     private readonly helloMethod: string;
@@ -471,7 +470,6 @@ export class HttpClient {
         return str;
     }
 
-    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     private assemblyParameter(data?: URLSearchParams, username?: string): URLSearchParams {
         const params = data ?? new URLSearchParams();
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -567,9 +565,8 @@ export class HttpClient {
         return undefined;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async get<T>({ url, data, token, cache = 'default' }: Readonly<ServerRequestOptions>): Promise<ResultModel<T>> {
-        const params = this.assemblyParameter(data as URLSearchParams);
+        const params = this.assemblyParameter(data ? new URLSearchParams(data) : undefined);
         const headers = await this.assemblyHeader({ "urlParams": params, "token": token });
         const api = `${this.getApiUrl(url)}?${params.toString()}`
         const logInfo = {
