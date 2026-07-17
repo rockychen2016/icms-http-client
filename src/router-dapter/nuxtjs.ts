@@ -6,7 +6,7 @@ import { logger } from "../logger";
 import { CONTENT_TYPE_KEY, CONTENT_TYPE_MAP } from "../router";
 import { ICookies } from "../types/http";
 
-export class NuxtJsAdapter implements FrameworkAdapter {
+export class NuxtJsAdapter implements FrameworkAdapter<H3Event, any> {
     async parseRequest(event: H3Event): Promise<RequestContext> {
         const url = getRequestURL(event);
         const method = event.method;

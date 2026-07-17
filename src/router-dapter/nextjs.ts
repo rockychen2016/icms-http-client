@@ -5,7 +5,7 @@ import { logger } from '../logger';
 import { CONTENT_TYPE_KEY, CONTENT_TYPE_MAP } from '../router';
 import { ICookies } from '../types/http';
 
-export class NextJsAdapter implements FrameworkAdapter {
+export class NextJsAdapter implements FrameworkAdapter<NextRequest, NextResponse> {
     async parseRequest(request: NextRequest): Promise<RequestContext> {
         const url = new URL(request.url);
         const method = request.method;

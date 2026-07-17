@@ -32,17 +32,17 @@ export interface ResponseContext {
  * 不同框架集成请实成该适配器
  * 注：本组件已实现NextJs、NuxtJs框架的路由处理
  */
-export interface FrameworkAdapter {
+export interface FrameworkAdapter<T, R> {
     /**
      * 解析请求
      * @param request 
      */
-    parseRequest(request: any): Promise<RequestContext>;
+    parseRequest(request: T): Promise<RequestContext>;
     /**
      * 创建响应
      * @param context 
      */
-    createResponse(context: ResponseContext): any;
+    createResponse(context: ResponseContext): R;
     /**
      * 
      * @param response 设置cookies

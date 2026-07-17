@@ -17,10 +17,10 @@ export const CONTENT_TYPE_MAP = {
     "multipartFormData": "multipart/form-data",
     "applicationXwwwFormUrlencoded": "application/x-www-form-urlencoded"
 }
-export class HTTPRouter {
+export class HTTPRouter<T,R> {
     private config: RouteConfig;
     private http: HttpClient;
-    private adapter: FrameworkAdapter;
+    private adapter: FrameworkAdapter<T,R>;
     constructor({
         config,
         adapter,
@@ -30,7 +30,7 @@ export class HTTPRouter {
         /**
          * 框架适配路由处理器
          */
-        adapter: FrameworkAdapter,
+        adapter: FrameworkAdapter<T,R>,
         /**
          * 这里的存取器应该使用Request.headers.get
          */
@@ -50,8 +50,7 @@ export class HTTPRouter {
         this.adapter = adapter;
     }
 
-    async handleRequest<T>(rawRequest: T): Promise<ResponseContext> {
-
+    async handleRequest(rawRequest: T): Promise<R> {
         try {
             // 解析请求
             const request = await this.adapter.parseRequest(rawRequest);
@@ -143,7 +142,7 @@ export class HTTPRouter {
         // 创建响应
         const h: Record<string, string> = {};
         h[CONTENT_TYPE_KEY] = CONTENT_TYPE_MAP.applicationJson;
-        const response: ResponseContext = {
+        const context: ResponseContext = {
             status: result.success ? 200 : result.code,
             headers: h,
             cookies: this.setCookies(req.cookies),
@@ -155,10 +154,10 @@ export class HTTPRouter {
             switch (url) {
                 case APIMAP[API[API.login]]:
                     const data = result.data;
-                    setToken(data, response);
+                    setToken(data, context);
                     break;
                 case APIMAP[API[API.logout]]:
-                    response.cleanCookies = (cookies) => cleanToken(cookies)
+                    context.cleanCookies = (cookies) => cleanToken(cookies)
                     break;
                 default:
                     break;
@@ -169,11 +168,11 @@ export class HTTPRouter {
                     url: url,
                     data: result.data,
                     req: req,
-                    res: response
+                    res: context
                 })
             }
         }
-        return response;
+        return context;
     }
 
     private createErrorResponse(code: number, message: string, cookies?: Record<string, string>): ResponseContext {
