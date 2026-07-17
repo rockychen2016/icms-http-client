@@ -38,9 +38,14 @@ export class HTTPRouter {
     }>) {
         this.config = config;
         let httpOpts = getServerHttpHeaders(storage.headers);
-        if (!httpOpts.deviceId || httpOpts.deviceId.trim().length === 0) {
+        const hasDeviceId = httpOpts.deviceId && httpOpts.deviceId.length > 0;
+        const hasWebsiteId = httpOpts.websiteId && httpOpts.websiteId.length > 0;
+        const hasWebsiteNo = httpOpts.websiteNo && httpOpts.websiteNo.length > 0;
+        const hasLang = httpOpts.lang && httpOpts.lang.length > 0;
+        if (!hasDeviceId || !hasWebsiteId || !hasWebsiteNo || !hasLang) {
             httpOpts = getServerHttpCookies(storage.cookies);
         }
+        
         this.http = new HttpClient({ ...httpOpts, userType: config.userType, helloURL: config.helloURL })
         this.adapter = adapter;
     }
