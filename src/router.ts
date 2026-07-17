@@ -18,9 +18,9 @@ export const CONTENT_TYPE_MAP = {
     "applicationXwwwFormUrlencoded": "application/x-www-form-urlencoded"
 }
 export class HTTPRouter<T,R> {
-    private config: RouteConfig;
-    private http: HttpClient;
-    private adapter: FrameworkAdapter<T,R>;
+    private readonly config: RouteConfig;
+    private readonly http: HttpClient;
+    private readonly adapter: FrameworkAdapter<T,R>;
     constructor({
         config,
         adapter,
@@ -30,7 +30,7 @@ export class HTTPRouter<T,R> {
         /**
          * 框架适配路由处理器
          */
-        adapter: FrameworkAdapter<T,R>,
+        adapter: any,
         /**
          * 这里的存取器应该使用Request.headers.get
          */
