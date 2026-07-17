@@ -1,3 +1,4 @@
+import { CONTENT_TYPE_KEY, CONTENT_TYPE_MAP } from "./constants";
 import { cleanToken, getServerHttpCookies, getServerHttpHeaders, getToken, HttpClient, setToken } from "./http-client";
 import { logger } from "./logger";
 import { HttpToken, ResultModel } from "./types/http";
@@ -11,12 +12,7 @@ const APIMAP: Record<string, string> = {
     "logout": "logout",
     "unknown": ""
 }
-export const CONTENT_TYPE_KEY = 'Content-Type';
-export const CONTENT_TYPE_MAP = {
-    "applicationJson": "application/json",
-    "multipartFormData": "multipart/form-data",
-    "applicationXwwwFormUrlencoded": "application/x-www-form-urlencoded"
-}
+
 export class HTTPRouter<T,R> {
     private readonly config: RouteConfig;
     private readonly http: HttpClient;
