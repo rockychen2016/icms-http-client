@@ -5,9 +5,7 @@ import {
     ClientGetParams,
     ClientPostParams,
     CSRFToken,
-    CurWebsite,
     ServerHttpOpts,
-    ClientHttpHeaders,
     HttpToken,
     ResultModel,
     ServerRequestOptions,
@@ -21,8 +19,6 @@ import { CONTENT_TYPE_KEY, CONTENT_TYPE_MAP, ResponseContext } from "./router";
 
 
 const DEFAULT_LOCALE = 'zh-CN';
-const DEVICE_ID_KEY = "_device_id_key";
-const CURRENT_WEBSITE_KEY = "_current_website_key"
 
 const _GET_ERROR = "Get request error!"
 const _POST_ERROR = "Post request error!";
@@ -43,39 +39,6 @@ const HEADER_NAMES = {
     "WEBSITE_NO": "Website-No",
 } as const
 
-const getClientRequestHeader = (storage: Readonly<IStorage>): ClientHttpHeaders => {
-    if (!storage.get) {
-        throw new Error("The get method of IStorage has not been implemented.")
-    }
-    const devideId = storage.get(DEVICE_ID_KEY) ?? ''
-    const json = storage.get(CURRENT_WEBSITE_KEY);
-    const curWebsite: CurWebsite | null = json != null ? JSON.parse(json) : null;
-    const header: ClientHttpHeaders = {}
-    if (devideId.length > 0) {
-        header['Device-Id'] = devideId
-    }
-    if (curWebsite) {
-        header['Lang'] = curWebsite.language;
-        if (curWebsite.websiteId) {
-            header['Website-Id'] = curWebsite.websiteId;
-        }
-        if (curWebsite.websiteNo) {
-            header['Website-No'] = curWebsite.websiteNo
-        }
-    }
-    return header;
-};
-
-export const setClientRequestHeader = ({ deviceId, website }: Readonly<{ deviceId: string, website?: CurWebsite }>, storage: IStorage): void => {
-    if (!storage.set) {
-        throw new Error("The set method of IStorage has not been implemented.")
-    }
-    storage.set(DEVICE_ID_KEY, deviceId);
-    if (website) {
-        storage.set(CURRENT_WEBSITE_KEY, JSON.stringify(website));
-    }
-}
-
 const getBaseUrl = (urlName: string) => {
     const baseUrl = process.env.BASE_URL || '/api/services';
     return `${baseUrl}?m=${urlName}`
@@ -87,23 +50,14 @@ export const get = async <T>(urlName: string, opts?: ClientGetParams): Promise<R
         const params = new URLSearchParams(opts.data);
         url += `&${params}`
     }
-    const headers: Record<string, string> = (opts && opts.storage && opts.storage.get) ? getClientRequestHeader(opts.storage) : {}
     const heads = opts?.headers;
-    if (heads) {
-        for (const field in heads) {
-            const value = heads[field];
-            if (value) {
-                headers[field] = value;
-            }
-        }
-    }
     logger.info({
         "url": url,
-        "headers": headers,
+        "headers": heads,
     }, "GET")
     const res = await fetch(url, {
         method: 'GET',
-        headers: headers,
+        headers: heads,
         cache: opts?.useCache ? 'force-cache' : 'default'
     });
 
@@ -126,7 +80,7 @@ export const post = async <T>(url: string, opts?: ClientPostParams): Promise<Res
     const data = opts?.data ?? {};
     const heads = opts?.headers;
     let body: string | FormData;
-    const defaultHeads = (opts && opts.storage && opts.storage.get) ? getClientRequestHeader(opts.storage) : {}
+    const defaultHeads = opts?.headers
     const proxyHeaders = new Headers(defaultHeads);
     if (!(data instanceof FormData)) {
         body = JSON.stringify(data);
@@ -204,7 +158,7 @@ export const iPostSuccess = async (url: string, opts?: ClientPostParams): Promis
     return false;
 }
 
-export const getServerHttpOpts = (storage: IStorage): ServerHttpOptsMin => {
+export const getServerHttpHeaders = (storage: IStorage): ServerHttpOptsMin => {
     if (storage.get) {
         const deviceId = storage.get(HEADER_NAMES.DEVICE_ID);
         const lang = storage.get(HEADER_NAMES.LANG);

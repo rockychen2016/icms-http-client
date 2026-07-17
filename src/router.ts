@@ -1,4 +1,4 @@
-import { cleanToken, getServerHttpCookies, getServerHttpOpts, getToken, HttpClient, setToken } from "./http-client";
+import { cleanToken, getServerHttpCookies, getServerHttpHeaders, getToken, HttpClient, setToken } from "./http-client";
 import { logger } from "./logger";
 import { HttpToken, ResultModel } from "./types/http";
 import { FrameworkAdapter, RequestContext, ResponseContext, ResponseCookies, RouteConfig, RouteStorage } from "./types/router";
@@ -37,7 +37,7 @@ export class HTTPRouter {
         storage: RouteStorage
     }>) {
         this.config = config;
-        let httpOpts = getServerHttpOpts(storage.headers);
+        let httpOpts = getServerHttpHeaders(storage.headers);
         if (!httpOpts.deviceId || httpOpts.deviceId.trim().length === 0) {
             httpOpts = getServerHttpCookies(storage.cookies);
         }

@@ -88,7 +88,6 @@ export interface ClientGetParams {
 export interface ClientPostParams {
     data?: Record<string, string> | FormData | UIFormEntities,
     headers?: Record<string, string>,
-    storage?: IStorage
     showError?: (error: string) => void,
     showSuccess?: (msg: string) => void
 }
