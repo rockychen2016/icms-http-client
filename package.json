@@ -13,6 +13,12 @@
       "import": "./dist/icms-http-client.es.js",
       "require": "./dist/icms-http-client.cjs.js",
       "default": "./dist/icms-http-client.es.js"
+    },
+    "./client": {
+      "types": "./dist/types/client-entry.d.ts",
+      "import": "./dist/icms-http-client.client.es.js",
+      "require": "./dist/icms-http-client.client.cjs.js",
+      "default": "./dist/icms-http-client.client.es.js"
     }
   },
   "types": "./dist/types/index.d.ts",
@@ -21,7 +27,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && vite build --config vite.client.config.ts",
     "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
     "test": "vitest run",
     "preview": "vite preview",
