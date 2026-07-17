@@ -1,7 +1,7 @@
 {
   "name": "@rock.chen/icms-http-client",
   "private": false,
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "iCMS Nextjs/Nuxtjs 路由处理，使用该包可快速创建基于iCMS的(网站/APP/小程序)",
   "type": "module",
   "main": "./dist/icms-http-client.cjs.js",
