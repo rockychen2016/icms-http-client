@@ -50,7 +50,7 @@ export class HTTPRouter {
         this.adapter = adapter;
     }
 
-    async handleRequest<T, R>(rawRequest: T): Promise<R> {
+    async handleRequest<T>(rawRequest: T): Promise<ResponseContext> {
 
         try {
             // 解析请求
@@ -65,6 +65,7 @@ export class HTTPRouter {
             return this.adapter.createResponse(response);
         }
     }
+    
     private async processRequest(request: RequestContext): Promise<ResponseContext> {
         const searchParams = request.url.searchParams
         const m = searchParams.get('m') ?? 'unknown';
