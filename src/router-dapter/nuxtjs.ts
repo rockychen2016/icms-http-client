@@ -3,8 +3,8 @@
 import { deleteCookie, getRequestURL, H3Event, MultiPartData, parseCookies, readBody, readMultipartFormData, setCookie, setHeader, setResponseStatus } from "h3";
 import { FrameworkAdapter, RequestContext, RequestFormData, ResponseContext } from "../types/router";
 import { logger } from "../logger";
-import { CONTENT_TYPE_KEY, CONTENT_TYPE_MAP } from "../router";
 import { ICookies } from "../types/http";
+import { CONTENT_TYPE_KEY, CONTENT_TYPE_MAP } from "../constants";
 
 export class NuxtJsAdapter implements FrameworkAdapter<H3Event, any> {
     async parseRequest(event: H3Event): Promise<RequestContext> {
