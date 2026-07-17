@@ -30,7 +30,7 @@ export class HTTPRouter<T,R> {
         /**
          * 框架适配路由处理器
          */
-        adapter: any,
+        adapter: FrameworkAdapter<T,R>,
         /**
          * 这里的存取器应该使用Request.headers.get
          */
